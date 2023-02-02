@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus</groupId>
-    <artifactId>spring-01</artifactId>
+    <artifactId>otus-spring</artifactId>
     <version>1.0</version>
 
     <packaging>pom</packaging>
 
     <modules>
         <module>spring-homework-01</module>
+        <module>spring-homework-02</module>
     </modules>
 </project>
