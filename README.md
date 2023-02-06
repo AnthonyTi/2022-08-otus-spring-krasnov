@@ -6,3 +6,4 @@
 Список домашних заданий (для удобства все задания разбиты по модулям):
 1. Введение в Spring Framework -  spring-homework-01
 2. Конфигурирование Spring-приложений -  spring-homework-02
+3. "Чёрная магия" Spring Boot - spring-homework-03

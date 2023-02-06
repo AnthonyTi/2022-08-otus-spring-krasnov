@@ -13,5 +13,6 @@
     <modules>
         <module>spring-homework-01</module>
         <module>spring-homework-02</module>
+        <module>spring-homework-03</module>
     </modules>
 </project>
