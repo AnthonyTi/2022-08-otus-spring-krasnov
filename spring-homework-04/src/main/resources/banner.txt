@@ -1,0 +1,13 @@
+${AnsiColor.1}${AnsiBackground.233}                          ,
+${AnsiBackground.235}   ,-.       _,---._ __  / \
+${AnsiBackground.237}  /  )    .-'       `./ /   \
+${AnsiBackground.239} (  (   ,'            `/    /|
+${AnsiBackground.241}  \  `-"             \'\   / |
+${AnsiBackground.243}   `.              ,  \ \ /  |
+${AnsiBackground.245}    /`.          ,'-`----Y   |
+${AnsiBackground.247}   (            ;        |   '
+${AnsiBackground.249}   |  ,-.    ,-'         |  /
+${AnsiBackground.251}   |  | (   |            | /
+${AnsiBackground.253}   )  |  \  `.___________|/
+${AnsiBackground.255}   `--'   `--'
+${AnsiBackground.DEFAULT}${AnsiColor.DEFAULT}
