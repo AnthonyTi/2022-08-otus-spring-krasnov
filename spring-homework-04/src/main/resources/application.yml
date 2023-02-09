@@ -1,0 +1,20 @@
+spring:
+  main:
+    allow-circular-references: true
+  messages:
+    basename: "i18n/appmessages"
+    encoding: "UTF-8"
+
+server:
+  port: 8080
+
+application:
+  message: "Test Props msg"
+  locale: ru
+  passing-score: 4
+  number-of-questions: 5
+  resource-path: "qa"
+
+logging:
+  level:
+    root: ERROR
