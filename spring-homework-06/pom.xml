@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.otus</groupId>
-	<artifactId>spring-homework-05</artifactId>
+	<artifactId>spring-homework-06</artifactId>
 	<version>1.0</version>
-	<name>spring-homework-05</name>
-	<description>spring-homework-05</description>
+	<name>spring-homework-06</name>
+	<description>spring-homework-06</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -25,7 +25,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 		<dependency>
