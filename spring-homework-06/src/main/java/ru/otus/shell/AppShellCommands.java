@@ -21,7 +21,6 @@ public class AppShellCommands {
 
     private final AuthorRepository authorRepository;
 
-
     @ShellMethod(value = "Show authors", key = "sa")
     public String showAuthors () {
         List<Author> authorList = authorRepository.getAll();
@@ -72,6 +71,13 @@ public class AppShellCommands {
         libraryService.addCommentByBookId(new Comment(text), id);
         List<Comment> comments = libraryService.getAllCommentsByBookId(id);
         return String.format("Comment was added. Comments: %s", comments);
+    }
+
+    @ShellMethod(value = "Delete book by id", key = "delBID")
+    @Transactional
+    public String deleteBookById(@ShellOption() Long id) {
+        libraryService.deleteBookById(id);
+        return String.format("Book with id %s was deleted", id);
     }
 
 }

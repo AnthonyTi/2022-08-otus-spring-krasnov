@@ -1,17 +1,17 @@
 package ru.otus.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class CommentRepositoryJpa implements CommentRepository {
 
@@ -19,20 +19,28 @@ public class CommentRepositoryJpa implements CommentRepository {
     private EntityManager em;
 
     @Override
-    public void deleteById(Long id) {
-        Query query = em.createQuery("delete from Comment c where c.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+    public Long count() {
+        TypedQuery<Long> query = em.createQuery("select count(c) from Comment c", Long.class);
+        return query.getSingleResult();
     }
 
     @Override
-    public void update(Comment comment) {
-        Query query = em.createQuery("update Comment c " +
-                "set c.text = :text " +
-                "where c.id = :id");
-        query.setParameter("text", comment.getText());
-        query.setParameter("id", comment.getId());
-        query.executeUpdate();
+    public Comment addComment(Comment comment) {
+        if (comment.getId() == null) {
+            em.persist(comment);
+            return comment;
+        }
+        return em.merge(comment);
+    }
+
+    @Override
+    public void deleteComment(Comment comment) {
+        em.remove(comment);
+    }
+
+    @Override
+    public Comment update(Comment comment) {
+        return em.merge(comment);
     }
 
     @Override

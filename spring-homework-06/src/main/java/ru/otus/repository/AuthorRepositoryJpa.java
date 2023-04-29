@@ -1,7 +1,7 @@
 package ru.otus.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.domain.Author;
 
 import javax.persistence.EntityManager;
@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class AuthorRepositoryJpa implements AuthorRepository {
 
@@ -26,20 +26,13 @@ public class AuthorRepositoryJpa implements AuthorRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
-        Query query = em.createQuery("delete from Author a where a.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+    public void deleteAuthor(Author author) {
+        em.remove(author);
     }
 
     @Override
-    public void update(Author author) {
-        Query query = em.createQuery("update Author a " +
-                "set a.name = :name " +
-                "where a.id = :id");
-        query.setParameter("name", author.getName());
-        query.setParameter("id", author.getId());
-        query.executeUpdate();
+    public Author update(Author author) {
+        return em.merge(author);
     }
 
     @Override

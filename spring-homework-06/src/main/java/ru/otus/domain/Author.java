@@ -1,8 +1,12 @@
 package ru.otus.domain;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "author")
@@ -14,9 +18,6 @@ public class Author {
 
     @Column(name = "name")
     private String name;
-
-//    @OneToMany(mappedBy = "author")
-//    private List<Book> books;
 
     public Author() {
     }
@@ -40,14 +41,6 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public List<Book> getBooks() {
-//        return books;
-//    }
-//
-//    public void setBooks(List<Book> books) {
-//        this.books = books;
-//    }
 
     @Override
     public String toString() {

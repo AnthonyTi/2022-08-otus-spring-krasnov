@@ -8,9 +8,9 @@ public interface AuthorRepository {
 
     Author insert(Author author);
 
-    void deleteById(Long id);
+    void deleteAuthor(Author author);
 
-    void update(Author author);
+    Author update(Author author);
 
     Author getById(Long id);
 

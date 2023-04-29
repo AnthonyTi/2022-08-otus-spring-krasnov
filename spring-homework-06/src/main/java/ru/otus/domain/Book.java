@@ -1,12 +1,26 @@
 package ru.otus.domain;
 
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "book")
-@NamedEntityGraph(name = "book-comments-entity-graph",
-        attributeNodes = {@NamedAttributeNode("comments")})
+@NamedEntityGraph(name = "book-entity-graph",
+        attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("genre")})
 public class Book {
 
     @Id
@@ -73,6 +87,9 @@ public class Book {
     }
 
     public List<Comment> getComments() {
+        if (comments == null) {
+            return new ArrayList<>();
+        }
         return comments;
     }
 

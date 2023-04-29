@@ -7,9 +7,13 @@ import java.util.List;
 
 public interface CommentRepository {
 
-    void deleteById(Long id);
+    Long count();
 
-    void update(Comment comment);
+    Comment addComment(Comment comment);
+
+    void deleteComment(Comment comment);
+
+    Comment update(Comment comment);
 
     Comment getById(Long id);
 

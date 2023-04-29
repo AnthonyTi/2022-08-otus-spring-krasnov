@@ -40,15 +40,6 @@ class BookRepositoryJpaTest {
         assertThat(insertedBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
-    @DisplayName("Должен добавить комментарий к книге")
-    @Test
-    void addComment() {
-        val book = bookRepositoryJpa.getById(FIRST_BOOK_ID);
-        bookRepositoryJpa.addCommentToBook(new Comment("Тестовый комментарий"), book.getId());
-        val bookWithNewComment = em.find(Book.class, FIRST_BOOK_ID);
-        assertThat(bookWithNewComment.getComments()).hasSize(EXPECTED_AMOUNT_OF_COMMENTS);
-    }
-
     @DisplayName("Должен вернуть книгу по id")
     @Test
     void getById() {

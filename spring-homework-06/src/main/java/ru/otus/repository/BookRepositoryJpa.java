@@ -1,14 +1,18 @@
 package ru.otus.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 
-import javax.persistence.*;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class BookRepositoryJpa implements BookRepository {
 
@@ -25,12 +29,8 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
-        Query query = em.createQuery("delete " +
-                "from Book b " +
-                "where b.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+    public void deleteBook(Book book) {
+        em.remove(book);
     }
 
     @Override
@@ -41,6 +41,11 @@ public class BookRepositoryJpa implements BookRepository {
         query.setParameter("name", name);
         query.setParameter("id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public Book updateBook(Book book) {
+        return em.merge(book);
     }
 
     @Override
@@ -60,20 +65,12 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public List<Book> getAll() {
-        EntityGraph<?> entityGraph = em.getEntityGraph("book-comments-entity-graph");
-        TypedQuery<Book> query = em.createQuery("select b from Book b join fetch b.comments", Book.class);
+        EntityGraph<?> entityGraph = em.getEntityGraph("book-entity-graph");
+        TypedQuery<Book> query = em.createQuery("select b from Book b " +
+                "join fetch b.author " +
+                "join fetch b.genre", Book.class);
         query.setHint("javax.persistence.fetchgraph", entityGraph);
         return query.getResultList();
     }
-
-    @Override
-    public void addCommentToBook(Comment comment, Long bookId) {
-        Book book = getById(bookId);
-        List<Comment> comments = book.getComments();
-        comments.add(comment);
-        book.setComments(comments);
-        em.persist(book);
-    }
-
 
 }
