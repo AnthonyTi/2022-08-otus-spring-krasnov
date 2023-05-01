@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
+import ru.otus.domain.Genre;
 import ru.otus.repository.AuthorRepository;
 import ru.otus.service.LibraryService;
 
@@ -19,29 +20,38 @@ public class AppShellCommands {
 
     private final LibraryService libraryService;
 
-    private final AuthorRepository authorRepository;
-
     @ShellMethod(value = "Show authors", key = "sa")
     public String showAuthors () {
-        List<Author> authorList = authorRepository.getAll();
+        List<Author> authorList = libraryService.getAllAuthors();
         return String.format("List of authors: %s", authorList.toString());
+    }
+
+    @ShellMethod(value = "Show genres", key = "sg")
+    public String showGenres () {
+        List<Genre> genreList = libraryService.getAllGenres();
+        return String.format("List of genres: %s", genreList.toString());
     }
 
     @ShellMethod(value = "Add author", key = "addA")
     @Transactional
     public String addAuthor (@ShellOption()String name) {
         Author author = new Author(name);
-        author = authorRepository.insert(author);
+        author = libraryService.addAuthor(author);
         return String.format("Author was added with id = %s", author.getId());
     }
 
-    @ShellMethod(value = "Update author", key = "updA")
-    @Transactional
-    public String updAuthor (@ShellOption()Long id, @ShellOption()String name) {
-        Author author = new Author(name);
-        author.setId(id);
-        authorRepository.update(author);
-        return String.format("Author was updated with id = %s", id);
+    @ShellMethod(value = "Add genre", key = "addG")
+    public String addGenre (@ShellOption()String name) {
+        Genre genre = new Genre(name);
+        genre = libraryService.addGenre(genre);
+        return String.format("Genre was added with id = %s", genre.getId());
+    }
+
+    @ShellMethod(value = "Add book", key = "addB")
+    public String addBook (@ShellOption()String name) {
+        Book book = new Book(name);
+        book = libraryService.addBook(book);
+        return String.format("Genre was added with id = %s", book.getId());
     }
 
     @ShellMethod(value = "Get books", key = "getAB")
@@ -49,13 +59,6 @@ public class AppShellCommands {
     public String getBooks () {
         List<Book> bookList = libraryService.getAllBooks();
         return String.format("List of books: %s", bookList.toString());
-    }
-
-    @ShellMethod(value = "Get book", key = "getB")
-    @Transactional
-    public String getBookById (@ShellOption() Long id) {
-        Book book = libraryService.getBookById(id);
-        return String.format("Book: %s", book);
     }
 
     @ShellMethod(value = "Get book's comments", key = "getBC")

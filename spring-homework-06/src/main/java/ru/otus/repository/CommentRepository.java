@@ -17,6 +17,4 @@ public interface CommentRepository {
 
     Comment getById(Long id);
 
-    List<Comment> getAllByBookId(Book book);
-
 }

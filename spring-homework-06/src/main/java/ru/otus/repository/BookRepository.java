@@ -11,7 +11,6 @@ public interface BookRepository {
 
     void deleteBook(Book book);
 
-    void updateNameById(Long id, String name);
 
     Book updateBook(Book book);
 

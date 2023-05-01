@@ -2,13 +2,11 @@ package ru.otus.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
 
 @Component
@@ -48,10 +46,4 @@ public class CommentRepositoryJpa implements CommentRepository {
         return em.find(Comment.class, id);
     }
 
-    @Override
-    public List<Comment> getAllByBookId(Book book) {
-        var query = em.createQuery("select b.comments from Book b where b.id = :bookId", Comment.class);
-        query.setParameter("bookId", book.getId());
-        return query.getResultList();
-    }
 }

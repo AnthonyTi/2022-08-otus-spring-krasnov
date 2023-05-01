@@ -23,6 +23,8 @@ public interface LibraryService {
 
     Book addBook(Book book);
 
+    void updateBookNameById(Long id, String name);
+
     void deleteBookById(Long id);
 
     void addCommentByBookId(Comment comment, Long id);
