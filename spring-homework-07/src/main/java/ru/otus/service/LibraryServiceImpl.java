@@ -27,13 +27,11 @@ public class LibraryServiceImpl implements LibraryService {
 
     private final CommentRepository commentRepository;
 
-    @Transactional
     @Override
     public Genre addGenre(Genre genre) {
         return genreRepository.save(genre);
     }
 
-    @Transactional
     @Override
     public Author addAuthor(Author author) {
         return authorRepository.save(author);
@@ -65,7 +63,6 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    @Transactional
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }
@@ -81,7 +78,6 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    @Transactional
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }

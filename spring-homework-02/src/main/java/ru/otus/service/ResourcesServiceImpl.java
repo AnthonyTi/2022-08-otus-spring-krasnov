@@ -1,5 +1,6 @@
 package ru.otus.service;
 
+import org.springframework.stereotype.Service;
 import ru.otus.SpringApplication;
 import ru.otus.domain.Questionnaire;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class ResourcesServiceImpl implements SourceService {
     private final String resourcePath;
 
@@ -22,15 +24,12 @@ public class ResourcesServiceImpl implements SourceService {
         InputStream is = SpringApplication.class.getClassLoader().getResourceAsStream(this.resourcePath);
         Scanner s = new Scanner(is, StandardCharsets.UTF_8).useDelimiter("\n");
         while (s.hasNext()) {
-            result.add(parseStringToQuestion(s.next()));
+            String[] strArr = s.next().split(";");
+            String question = strArr.length > 0 ? strArr[0] : "";
+            String answer = strArr.length == 2 ? strArr[1] : "";
+            Questionnaire questionnaire = new Questionnaire(question, answer);
+            result.add(questionnaire);
         }
         return result;
-    }
-
-    private Questionnaire parseStringToQuestion(final String str) {
-        String[] strArr = str.split(";");
-        String question = strArr.length > 0 ? strArr[0] : "";
-        String answer = strArr.length == 2 ? strArr[1] : "";
-        return new Questionnaire(question, answer);
     }
 }

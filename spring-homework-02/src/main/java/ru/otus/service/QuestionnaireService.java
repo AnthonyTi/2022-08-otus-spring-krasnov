@@ -1,9 +1,12 @@
 package ru.otus.service;
 
+import ru.otus.domain.Questionnaire;
+import java.util.List;
+
 public interface QuestionnaireService {
 
     void showRandomQuestionnaire();
 
-    void startNewQuestionnaire();
+    List<Questionnaire> getQuestions();
 
 }
