@@ -107,7 +107,6 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", \n\tauthor=" + author +
                 ", \n\tgenre=" + genre +
-                ", \n\tcomments=" + comments +
                 "}\n";
     }
 
