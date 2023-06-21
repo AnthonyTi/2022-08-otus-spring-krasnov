@@ -1,0 +1,27 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+  data:
+    mongodb:
+      port: 0
+      database: test
+
+
+logging:
+  level:
+    root: ERROR
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
+mongock:
+  runner-type: ApplicationRunner
+  change-logs-scan-package:
+    - ru.otus.changelogs
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
