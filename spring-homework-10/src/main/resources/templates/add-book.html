@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+
+        h3 {
+            background-image: url("../static/listmark.png");
+            background-repeat: no-repeat;
+            padding: 2px;
+            padding-left: 30px;
+        }
+
+        .errors {
+            color: red;
+        }
+    </style>
+
+    <style type="text/css" th:inline="text">
+        [[h3]] {
+            background-image: url([[@{/listmark.png}]]);
+            background-repeat: no-repeat;
+            padding: 2px;
+            padding-left: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Book adding -->
+<form class="add book" id="add-form" action="add-book.html" th:action="@{/books/add}" th:method="post" th:object="${book}">
+    <h3 th:text = "#{book-form-header}">New book:</h3>
+
+    <div class="row">
+        <label for="book-name-input" th:text="#{book-field-name} + ':'">Name:</label>
+        <input id="book-name-input" type="text" th:field="*{name}" value="1234"/>
+    </div>
+    <div class="row">
+        <label for="book-author-name" th:text="#{book-field-author} + ':'">Author:</label>
+        <select id="book-author-name" th:field="*{author}"></select>
+    </div>
+    <div class="row">
+        <label for="book-genre-name" th:text="#{book-field-genre} + ':'">Genre:</label>
+        <select id="book-genre-name" th:field="*{genre}"></select>
+    </div>
+
+    <div class="row">
+        <button type="submit" th:text="#{save-button-caption}">Save</button>
+        <a href="books.html" th:href="@{/books}"><button type="button" th:text="#{cancel-button-caption}">Cancel</button></a>
+    </div>
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", async function verification() {
+        await getAuthors();
+        await getGenres();
+    })
+
+    async function getAuthors() {
+        let get = await fetch('/api/author');
+        if (get.ok) {
+            const authorOpt = document.getElementById('book-author-name')
+            let json = await get.json();
+            json.forEach(author => {
+                const opt = document.createElement('option');
+                opt.value = author.id;
+                opt.text = author.name;
+                authorOpt.append(opt);
+            });
+        } else {
+            alert("Ошибка HTTP" + get.status);
+        }
+    }
+
+    async function getGenres() {
+        let get = await fetch('/api/genre');
+        if (get.ok) {
+            const genreOpt = document.getElementById('book-genre-name')
+            let json = await get.json();
+            json.forEach(genre => {
+                const opt = document.createElement('option');
+                opt.value = genre.id;
+                opt.text = genre.name;
+                genreOpt.append(opt);
+            });
+        } else {
+            alert("Ошибка HTTP" + get.status);
+        }
+    }
+</script>
+</body>
+</html>
