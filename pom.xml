@@ -24,6 +24,7 @@
         <module>spring-homework-11</module>
         <module>spring-homework-12</module>
         <module>spring-homework-13</module>
-		<module>spring-homework-16</module>
+	<module>spring-homework-16</module>
+	<module>spring-homework-17</module>
     </modules>
 </project>
