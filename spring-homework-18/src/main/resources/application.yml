@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  messages:
+    encoding: UTF-8
+  main:
+    allow-circular-references: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: library
+  jmx:
+    enabled: true
+
+mongock:
+  runner-type: InitializingBean
+  change-logs-scan-package:
+    - ru.otus.changelogs
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list:
+      - "*"
+
+
+logging:
+  level:
+    root: INFO
+#  file:
+#    name: app.log
